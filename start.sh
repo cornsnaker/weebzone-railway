@@ -1,15 +1,11 @@
-# Check if the .venv folder exists
-if [ ! -d ".venv" ]; then
-    echo "Creating virtual environment..."
-    python3 -m venv .venv
-fi
+#!/bin/bash
 
-# Activate the environment
-source .venv/bin/activate
-
-# Install dependencies (essential because it's a fresh environment)
+# 1. Install dependencies globally (skipping venv)
 echo "Installing requirements..."
-pip install -r requirements.txt
+pip3 install -U -r requirements.txt
 
-# Run your bot commands
+# 2. Force install uvloop (it seems to be missing or failing in the main list)
+pip3 install uvloop
+
+# 3. Update and Start the Bot
 python3 config.py && python3 update.py && python3 -m bot
